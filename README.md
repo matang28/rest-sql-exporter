@@ -7,7 +7,7 @@ Currently, it provides data access to any MySQL database but you can extend it t
 
 ## How to use ##
 
-This micro-service exposes two REST endpoints. The first one is used to generate a secured table name and the second one should be used to export the data from a table.  
+This service exposes two REST endpoints. The first one is used to generate a secured table name and the second one should be used to export the data from a table.  
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/33292201dd6a7b30f359)
 
 ### Generate token ###
@@ -19,8 +19,7 @@ You should use it when you want to provide access to different tables, the gener
 * **HTTP Method:** POST
 * **Headers:** Content-Type : application/json
 * **Body**:
-```
-#!js
+```js
 {
         "token" : "The secret token",
         "name" : "The table name"
@@ -29,8 +28,7 @@ You should use it when you want to provide access to different tables, the gener
 
 
 #### Example ####
-```
-#!bash
+```bash
     curl -X POST \
       http://localhost:8080/data/sql/generate \
       -H 'content-type: application/json' \
@@ -48,8 +46,7 @@ This endpoint will provide a way to extract data from the connected MySQL databa
 * **HTTP Method:** POST
 * **Headers:** Content-Type : application/json
 * **Body**:
-```
-#!js
+```js
     {
         "token" : "The generated table token",
         "fields": ["array", "of", "the", "columns", "to", "export"],
@@ -61,8 +58,7 @@ This endpoint will provide a way to extract data from the connected MySQL databa
 ```
 
 #### Example 1 ####
-```
-#!bash
+```bash
     curl -X POST \
       http://localhost:8080/data/sql/export \
       -H 'content-type: application/json' \
@@ -77,8 +73,7 @@ This endpoint will provide a way to extract data from the connected MySQL databa
 ```
 
 #### Example 2 ####
-```
-#!bash
+```bash
     curl -X POST \
       http://localhost:8080/data/sql/export \
       -H 'content-type: application/json' \
@@ -96,15 +91,13 @@ This endpoint will provide a way to extract data from the connected MySQL databa
 ### Build & Package ###
 
 This is a maven project so you can build the project using:
-```
-#!bash
+```bash
     $> mvn clean package
 ```
 
 This will create the .jar file in the target directory. Since its a basic Spring Boot application you can run it using:
 
-```
-#!bash
+```bash
     #> java \
             -Djava.security.egd=file:/dev/./urandom \
             -Dsql.jdbc="sql url" \
@@ -116,15 +109,13 @@ This will create the .jar file in the target directory. Since its a basic Spring
 ### Docker ###
 
 If you have docker installed you can build a docker image from the project using:
-```
-#!bash
+```bash
     $> mvn clean package docker:build
 ```
 
 and run it using:
 
-```
-#!bash
+```bash
     $> docker run -p8080:8080 \
         -e sql.jdbc="sql url" \
         -e sql.username="username" \
